@@ -1,7 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *         MOLT IMPORTANT :
+ *               NO ES POT MODIFICAR LA URL DELS WSDL ALS WEB SERVICES
+ *               S'HAN DE ESBORRAR I CREAR DE NOU
+ *               A LA PANTALLA DE CUSTOMIZATION/GLOBAL EL 
+ *     
+ *                   ENABLE WRAPPER STYLE 
+ * 
+ *               HA DE ESTAR DESMARCAT!!!!
+ *
+ *          Normalment quan els carrega el deixa marcat i sh'a d'anar i canviar. Això m'ha fer perdre moltes hores
+ *
  */
 package sii;
 
