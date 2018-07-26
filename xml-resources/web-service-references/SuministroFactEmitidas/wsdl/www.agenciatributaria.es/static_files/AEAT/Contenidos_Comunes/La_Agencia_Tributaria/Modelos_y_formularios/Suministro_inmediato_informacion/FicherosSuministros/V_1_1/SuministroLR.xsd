@@ -54,6 +54,7 @@
 			<extension base="sii:RegistroSii">
 				<sequence>
 					<element name="IDFactura" type="sii:IDFacturaExpedidaBCType"/>
+					<element name="RefExterna" type="sii:TextMax60Type" minOccurs="0"/>
 				</sequence>
 			</extension>
 		</complexContent>
@@ -109,6 +110,7 @@
 			<extension base="sii:RegistroSii">
 				<sequence>
 					<element name="IDFactura" type="sii:IDFacturaRecibidaNombreBCType"/>
+					<element name="RefExterna" type="sii:TextMax60Type" minOccurs="0"/>
 				</sequence>
 			</extension>
 		</complexContent>
@@ -165,6 +167,7 @@
 				<sequence>
 					<element name="IDFactura" type="sii:IDFacturaComunitariaType"/>
 					<element name="IdentificacionBien" type="sii:TextMax40Type"/>
+					<element name="RefExterna" type="sii:TextMax60Type" minOccurs="0"/>
 				</sequence>
 			</extension>
 		</complexContent>
@@ -196,6 +199,7 @@
 						</annotation>
 					</element>
 					<element name="ImporteTotal" type="sii:ImporteSgn12.2Type"/>
+					<element name="EntidadSucedida" type="sii:PersonaFisicaJuridicaUnicaESType" minOccurs="0"/>
 				</sequence>
 			</extension>
 		</complexContent>
@@ -255,6 +259,7 @@
 						</annotation>
 					</element>
 					<element name="ImporteTotal" type="sii:ImporteSgn12.2Type"/>
+					<element name="EntidadSucedida" type="sii:PersonaFisicaJuridicaUnicaESType" minOccurs="0"/>
 				</sequence>
 			</extension>
 		</complexContent>
@@ -315,6 +320,7 @@
 					</element>
 					<element name="ClaveOperacion" type="sii:ClaveOperacionType"/>
 					<element name="ImporteTotal" type="sii:ImporteSgn12.2Type"/>
+					<element name="EntidadSucedida" type="sii:PersonaFisicaJuridicaUnicaESType" minOccurs="0"/>
 				</sequence>
 			</extension>
 		</complexContent>
@@ -404,6 +410,7 @@
 			<extension base="sii:RegistroSii">
 				<sequence>
 					<element name="IDFactura" type="sii:IDFacturaComunitariaType"/>
+					<element name="RefExterna" type="sii:TextMax60Type" minOccurs="0"/>
 				</sequence>
 			</extension>
 		</complexContent>
@@ -424,11 +431,39 @@
 			</complexContent>
 		</complexType>
 	</element>
+	<!-- Datos correspondientes a la inclusión de Información adicional de Inmuebles de Facturas Expedidas
+    -->
+	<element name="SuministroLRInmueblesAdicionales">
+		<annotation>
+			<documentation>Suministro de información de Inmuebles adicionales</documentation>
+		</annotation>
+		<complexType>
+			<complexContent>
+				<extension base="sii:SuministroInformacionInmuebles">
+					<sequence>
+						<element name="RegistroLRInmueblesAdicionales" type="siiLR:LRInmueblesType" maxOccurs="10000"/>
+					</sequence>
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
 	<!-- Datos de suministro de cobros -->
 	<complexType name="LRCobrosEmitidasType">
 		<sequence>
 			<element name="IDFactura" type="sii:IDFacturaExpedidaBCType"/>
 			<element name="Cobros" type="sii:CobrosType"/>
+		</sequence>
+	</complexType>
+	<!-- Datos de suministro de Información adicional de Inmuebles -->
+	<complexType name="LRInmueblesType">
+		<sequence>
+			<element name="IDFactura" type="sii:IDFacturaExpedidaBCType"/>
+			<element name="DatosInmueble" type="siiLR:InmueblesAdicionalType"/>
+		</sequence>
+	</complexType>
+	<complexType name="InmueblesAdicionalType">
+		<sequence>
+			<element name="DetalleInmueble" type="sii:DatosInmuebleType" minOccurs="0" maxOccurs="10000"/>
 		</sequence>
 	</complexType>
 	<!-- Datos correspondientes a la inclusión de Pagos en el Libro de registro de Facturas Recibidas

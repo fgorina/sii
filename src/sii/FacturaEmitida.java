@@ -19,7 +19,7 @@ import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.apli
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.IDOtroType;
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.PersonaFisicaJuridicaESType;
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.PersonaFisicaJuridicaType;
-import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.RegistroSii.PeriodoImpositivo;
+import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.RegistroSii.PeriodoLiquidacion;
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.SujetaType;
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.SujetaType.Exenta;
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.TipoConDesgloseType;
@@ -28,14 +28,17 @@ import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.apli
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrolr.SuministroLRFacturasEmitidas;
 import java.math.BigInteger;
 
-import java.util.List;
-import es.gorina.sqlobjects.*;
-import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.respuestasuministro.RespuestaLRFRecibidasType;
+
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.CountryType2;
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.DetalleIVAEmitidaType;
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.SujetaType.NoExenta;
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.SujetaType.NoExenta.DesgloseIVA;
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.TipoOperacionSujetaNoExentaType;
+
+import java.util.List;
+import es.gorina.sqlobjects.*;
+import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.DetalleExentaType;
+
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -114,7 +117,7 @@ public class FacturaEmitida {
         }
  
         CabeceraSii cabecera = new CabeceraSii();
-        cabecera.setIDVersionSii("1.0");
+        cabecera.setIDVersionSii("1.1");
         cabecera.setTipoComunicacion(ClaveTipoComunicacionType.A_0);
         cabecera.setTitular(jo);
         
@@ -129,12 +132,12 @@ public class FacturaEmitida {
         }
          
         // Enviament a la AEAT
-        RespuestaLRFEmitidasType resposta;    
+        RespuestaLRFEmitidasType resposta ;    
+         
         
-   
         resposta = suministroLRFacturasEmitidas(suministro);
         return resposta;
-    
+      
     }
     
     static public int procesaRespuesta(DataConnection dc, RespuestaLRFEmitidasType resposta) throws SQLException, ClassNotFoundException{
@@ -313,7 +316,7 @@ public class FacturaEmitida {
           
         LRfacturasEmitidasType factura = new LRfacturasEmitidasType();
         
-        PeriodoImpositivo periodo = new PeriodoImpositivo();
+        PeriodoLiquidacion periodo = new PeriodoLiquidacion();
         periodo.setEjercicio(ejercicio);
         periodo.setPeriodo(periodoEj);
           
@@ -369,7 +372,8 @@ public class FacturaEmitida {
         tipo.setDesgloseTipoOperacion(tipoConDesglose);
         dadesFactura.setTipoDesglose(tipo);
           
-        factura.setPeriodoImpositivo(periodo);
+        //factura.setPeriodoImpositivo(periodo);
+        factura.setPeriodoLiquidacion(periodo);
         factura.setIDFactura(idFactura);
         factura.setFacturaExpedida(dadesFactura);
         
@@ -383,7 +387,7 @@ public class FacturaEmitida {
           
         LRfacturasEmitidasType factura = new LRfacturasEmitidasType();
         
-        PeriodoImpositivo periodo = new PeriodoImpositivo();
+        PeriodoLiquidacion periodo = new PeriodoLiquidacion();
         periodo.setEjercicio(this.ejercicio);
         periodo.setPeriodo(this.periodoEj);
         
@@ -416,8 +420,18 @@ public class FacturaEmitida {
         TipoDesglose tipo = new TipoDesglose();
           
         Exenta exenta = new Exenta();
-        exenta.setCausaExencion(CausaExencionType.fromValue(this.causaExencion));
-        exenta.setBaseImponible(this.baseImponible);
+        
+        DetalleExentaType dexenta = new DetalleExentaType();
+        CausaExencionType causa = CausaExencionType.fromValue(this.causaExencion);
+        dexenta.setCausaExencion(causa);
+        dexenta.setBaseImponible(this.baseImponible);
+        
+        exenta.getDetalleExenta().add(dexenta);
+        
+        //exenta.setCausaExencion(CausaExencionType.fromValue(this.causaExencion));
+        //exenta.setBaseImponible(this.baseImponible);
+        
+        
         
         SujetaType sujeta = new SujetaType();
         sujeta.setExenta(exenta);
@@ -431,14 +445,31 @@ public class FacturaEmitida {
         tipo.setDesgloseTipoOperacion(tipoConDesglose);
         dadesFactura.setTipoDesglose(tipo);
           
-        factura.setPeriodoImpositivo(periodo);
+        factura.setPeriodoLiquidacion(periodo);
         factura.setIDFactura(idFactura);
         factura.setFacturaExpedida(dadesFactura);
         
         return factura;
     }
 
-    // OJO BUENA
+    /**
+     * 
+     * @param suministroLRFacturasEmitidas
+     * @return 
+     */
+    private static RespuestaLRFEmitidasType suministroLRFacturasEmitidas(https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrolr.SuministroLRFacturasEmitidas suministroLRFacturasEmitidas) {
+        https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrofactemitidas.SiiService service = new https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrofactemitidas.SiiService();
+        https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrofactemitidas.SiiSOAP port = service.getSuministroFactEmitidas();
+        return port.suministroLRFacturasEmitidas(suministroLRFacturasEmitidas);
+    }
+    
+    
+
+    /**
+     * Versio correcte fins 21 jul 18
+     * @param suministroLRFacturasEmitidas
+     * @return 
+     
  
     private static RespuestaLRFEmitidasType suministroLRFacturasEmitidas(https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrolr.SuministroLRFacturasEmitidas suministroLRFacturasEmitidas) {
         https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrofactemitidas.SiiService service = new https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrofactemitidas.SiiService();
@@ -447,7 +478,33 @@ public class FacturaEmitida {
          
         return port.suministroLRFacturasEmitidas(suministroLRFacturasEmitidas);
     }
+    */
     
+    
+    
+    /**
+     * 
+     * @param cabecera
+     * @param registroLRFacturasEmitidas
+     * @param csv   retorna el csv
+     * @param datosPresentacion             retorna los datos de presentacion
+     * @param estadoEnvio      retorna el estado del envio
+     * @param respuestaLinea    array con las respuestas de las lineas  
+
+    
+    private static void suministroLRFacturasEmitidas(javax.xml.ws.Holder<https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.CabeceraSii> cabecera, 
+                java.util.List<https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrolr.LRfacturasEmitidasType> registroLRFacturasEmitidas, 
+                javax.xml.ws.Holder<java.lang.String> csv, 
+                javax.xml.ws.Holder<https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.DatosPresentacionType> datosPresentacion, 
+                javax.xml.ws.Holder<https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.respuestasuministro.EstadoEnvioType> estadoEnvio, 
+                javax.xml.ws.Holder<java.util.List<https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.respuestasuministro.RespuestaExpedidaType>> respuestaLinea) 
+    {
+        https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrofactemitidas.SiiService service = new https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrofactemitidas.SiiService();
+        https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrofactemitidas.SiiSOAP port = service.getSuministroFactEmitidas();
+               
+        port.suministroLRFacturasEmitidas(cabecera, registroLRFacturasEmitidas, csv, datosPresentacion, estadoEnvio, respuestaLinea);
+    }
+    * */
     /**
      * Envia i retorna la resposta de la AEAT 
      * 

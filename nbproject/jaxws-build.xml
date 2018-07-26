@@ -18,8 +18,8 @@
     </target>
     <target name="wsimport-client-SuministroFactEmitidas" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/SuministroFactEmitidas"/>
-        <property name="wsdl-SuministroFactEmitidas" location="xml-resources/web-service-references/SuministroFactEmitidas/wsdl/www.agenciatributaria.es/static_files/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Modelos_y_formularios/Suministro_inmediato_informacion/FicherosSuministros/V_07/SuministroFactEmitidas.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/SuministroFactEmitidas" destdir="${build.generated.dir}/jax-wsCache/SuministroFactEmitidas" wsdl="${wsdl-SuministroFactEmitidas}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://www.agenciatributaria.es/static_files/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Modelos_y_formularios/Suministro_inmediato_informacion/FicherosSuministros/V_07/SuministroFactEmitidas.wsdl" xnocompile="true" xendorsed="true">
+        <property name="wsdl-SuministroFactEmitidas" location="xml-resources/web-service-references/SuministroFactEmitidas/wsdl/www.agenciatributaria.es/static_files/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Modelos_y_formularios/Suministro_inmediato_informacion/FicherosSuministros/V_1_1/SuministroFactEmitidas.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/SuministroFactEmitidas" destdir="${build.generated.dir}/jax-wsCache/SuministroFactEmitidas" wsdl="${wsdl-SuministroFactEmitidas}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="https://www.agenciatributaria.es/static_files/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Modelos_y_formularios/Suministro_inmediato_informacion/FicherosSuministros/V_1_1/SuministroFactEmitidas.wsdl" xnocompile="true" xendorsed="true">
             <depends file="${wsdl-SuministroFactEmitidas}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/SuministroFactEmitidas"/>
         </wsimport>
@@ -35,8 +35,8 @@
     </target>
     <target name="wsimport-client-SuministroFactRecibidas" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/SuministroFactRecibidas"/>
-        <property name="wsdl-SuministroFactRecibidas" location="xml-resources/web-service-references/SuministroFactRecibidas/wsdl/www.agenciatributaria.es/static_files/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Modelos_y_formularios/Suministro_inmediato_informacion/FicherosSuministros/V_07/SuministroFactRecibidas.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/SuministroFactRecibidas" destdir="${build.generated.dir}/jax-wsCache/SuministroFactRecibidas" wsdl="${wsdl-SuministroFactRecibidas}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://www.agenciatributaria.es/static_files/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Modelos_y_formularios/Suministro_inmediato_informacion/FicherosSuministros/V_07/SuministroFactRecibidas.wsdl" xnocompile="true" xendorsed="true">
+        <property name="wsdl-SuministroFactRecibidas" location="xml-resources/web-service-references/SuministroFactRecibidas/wsdl/www.agenciatributaria.es/static_files/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Modelos_y_formularios/Suministro_inmediato_informacion/FicherosSuministros/V_1_1/SuministroFactRecibidas.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/SuministroFactRecibidas" destdir="${build.generated.dir}/jax-wsCache/SuministroFactRecibidas" wsdl="${wsdl-SuministroFactRecibidas}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="https://www.agenciatributaria.es/static_files/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Modelos_y_formularios/Suministro_inmediato_informacion/FicherosSuministros/V_1_1/SuministroFactRecibidas.wsdl" xnocompile="true" xendorsed="true">
             <depends file="${wsdl-SuministroFactRecibidas}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/SuministroFactRecibidas"/>
         </wsimport>

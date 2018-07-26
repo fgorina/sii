@@ -5,6 +5,7 @@
  */
 package sii;
 
+
 import es.gorina.sqlobjects.DataConnection;
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.respuestasuministro.RespuestaLRFRecibidasType;
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.respuestasuministro.RespuestaRecibidaType;
@@ -20,7 +21,7 @@ import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.apli
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.DetalleIVARecibidaType;
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.FacturaRecibidaType;
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.IDFacturaRecibidaType.IDEmisorFactura;
-import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.RegistroSii.PeriodoImpositivo;
+import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.RegistroSii.PeriodoLiquidacion;
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrolr.LRFacturasRecibidasType;
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrolr.SuministroLRFacturasRecibidas;
 import https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministroinformacion.IDOtroType;
@@ -118,7 +119,7 @@ public class FacturaRecibida {
         }
  
         CabeceraSii cabecera = new CabeceraSii();
-        cabecera.setIDVersionSii("1.0");
+        cabecera.setIDVersionSii("1.1");
         cabecera.setTipoComunicacion(ClaveTipoComunicacionType.A_0);
          
         cabecera.setTitular(jo);
@@ -190,13 +191,15 @@ public class FacturaRecibida {
           
         LRFacturasRecibidasType factura = new LRFacturasRecibidasType();
         
+     
+        
+        PeriodoLiquidacion periodo = new PeriodoLiquidacion();
         
         
-        PeriodoImpositivo periodo = new PeriodoImpositivo();
         periodo.setEjercicio(ejercicio);
         periodo.setPeriodo(periodoEj);
         
-        factura.setPeriodoImpositivo(periodo);
+        factura.setPeriodoLiquidacion(periodo);
         
        
         
@@ -402,11 +405,13 @@ public class FacturaRecibida {
             return(acum);
      }  
 
+    
+    
     private static RespuestaLRFRecibidasType suministroLRFacturasRecibidas(https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrolr.SuministroLRFacturasRecibidas suministroLRFacturasRecibidas) {
         https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrofactrecibidas.SiiService service = new https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrofactrecibidas.SiiService();
         https.www2_agenciatributaria_gob_es.static_files.common.internet.dep.aplicaciones.es.aeat.ssii.fact.ws.suministrofactrecibidas.SiiSOAP port = service.getSuministroFactRecibidas();
-        --return port.suministroLRFacturasRecibidas(suministroLRFacturasRecibidas);
-        return port.suministroLRFacturasRecibidas(cabecera, registroLRFacturasRecibidas, csv, datosPresentacion, estadoEnvio, respuestaLinea);
+        return port.suministroLRFacturasRecibidas(suministroLRFacturasRecibidas);
+        
     }
  
     /**

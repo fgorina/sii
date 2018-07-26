@@ -18,6 +18,12 @@
 	<wsdl:message name="EntradaConsultaLRFacturasEmitidas">
 		<wsdl:part name="ConsultaLRFacturasEmitidas" element="siiLRC:ConsultaLRFacturasEmitidas"/>
 	</wsdl:message>
+	<wsdl:message name="EntradaConsultaLRFactInformadasCliente">
+		<wsdl:part name="ConsultaLRFactInformadasCliente" element="siiLRC:ConsultaLRFactInformadasCliente"/>
+	</wsdl:message>
+	<wsdl:message name="EntradaConsultaLRFactInformadasAgrupadasCliente">
+		<wsdl:part name="ConsultaLRFactInformadasAgrupadasCliente" element="siiLRC:ConsultaLRFactInformadasAgrupadasCliente"/>
+	</wsdl:message>
 	<wsdl:message name="RespuestaSuministroLRFacturasEmitidas">
 		<wsdl:part name="RespuestaSuministroLRFacturasEmitidas" element="siiR:RespuestaLRFacturasEmitidas"/>
 	</wsdl:message>
@@ -26,6 +32,12 @@
 	</wsdl:message>
 	<wsdl:message name="RespuestaConsultaLRFacturasEmitidas">
 		<wsdl:part name="RespuestaConsultaLRFacturasEmitidas" element="siiLRRC:RespuestaConsultaLRFacturasEmitidas"/>
+	</wsdl:message>
+	<wsdl:message name="RespuestaConsultaLRFactInformadasCliente">
+		<wsdl:part name="RespuestaConsultaLRFactInformadasCliente" element="siiLRRC:RespuestaConsultaLRFactInformadasCliente"/>
+	</wsdl:message>
+	<wsdl:message name="RespuestaConsultaLRFactInformadasAgrupadasCliente">
+		<wsdl:part name="RespuestaConsultaLRFactInformadasAgrupadasCliente" element="siiLRRC:RespuestaConsultaLRFactInformadasAgrupadasCliente"/>
 	</wsdl:message>
 	<wsdl:portType name="siiSOAP">
 		<wsdl:operation name="SuministroLRFacturasEmitidas">
@@ -39,6 +51,14 @@
 		<wsdl:operation name="ConsultaLRFacturasEmitidas">
 			<wsdl:input message="siiWdsl:EntradaConsultaLRFacturasEmitidas"/>
 			<wsdl:output message="siiWdsl:RespuestaConsultaLRFacturasEmitidas"/>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultaLRFactInformadasCliente">
+			<wsdl:input message="siiWdsl:EntradaConsultaLRFactInformadasCliente"/>
+			<wsdl:output message="siiWdsl:RespuestaConsultaLRFactInformadasCliente"/>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultaLRFactInformadasAgrupadasCliente">
+			<wsdl:input message="siiWdsl:EntradaConsultaLRFactInformadasAgrupadasCliente"/>
+			<wsdl:output message="siiWdsl:RespuestaConsultaLRFactInformadasAgrupadasCliente"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="siiBinding" type="siiWdsl:siiSOAP">
@@ -70,13 +90,31 @@
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>
+		<wsdl:operation name="ConsultaLRFactInformadasCliente">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ConsultaLRFactInformadasAgrupadasCliente">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
 	</wsdl:binding>
 	<wsdl:service name="siiService">
-		<!-- Entorno de PRODUCCION día 1 de julio 2017-->
+		<!-- Entorno de PRODUCCION día 1 de julio 2018-->
 		<wsdl:port name="SuministroFactEmitidas" binding="siiWdsl:siiBinding">
 			<soap:address location="https://www1.agenciatributaria.gob.es/wlpl/SSII-FACT/ws/fe/SiiFactFEV1SOAP"/>
 		</wsdl:port>
-		<!-- Entorno de PRODUCCION día 1 de julio 2017 para acceso con certificado de sello -->
+		<!-- Entorno de PRODUCCION día 1 de julio 2018 para acceso con certificado de sello -->
 		<wsdl:port name="SuministroFactEmitidasSello" binding="siiWdsl:siiBinding">
 			<soap:address location="https://www10.agenciatributaria.gob.es/wlpl/SSII-FACT/ws/fe/SiiFactFEV1SOAP"/>
 		</wsdl:port>
